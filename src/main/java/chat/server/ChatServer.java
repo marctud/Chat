@@ -11,16 +11,26 @@ import javax.websocket.server.ServerEndpoint;
 import chat.camel.CamelRoutes;
 import chat.repository.ChatRepository;
 
-@ServerEndpoint("/message")
+@ServerEndpoint(value = "/message")
 public class ChatServer {
 
 	@OnOpen
 	public void onOpen(Session session) {
+		System.out.println(session.getId() + " has opened a connection");
 		ChatRepository.addSession(session);
 		try {
 			session.getBasicRemote().sendText("Connection Established");
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		}
+		for (Session repSession : ChatRepository.getSessions()) {
+			if (!session.getId().equals(repSession.getId())) {
+				try {
+					repSession.getBasicRemote().sendText("A new user has connected");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
