@@ -31,8 +31,4 @@ public class TestServer {
         }
     }
 	
-	@OnClose
-    public void onClose(Session session){
-        System.out.println("Session " +session.getId()+" has ended");
-    }
 }

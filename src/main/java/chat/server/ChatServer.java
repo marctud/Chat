@@ -8,6 +8,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import chat.camel.CamelRoutes;
 import chat.repository.ChatRepository;
 
 @ServerEndpoint("/message")
@@ -34,6 +35,7 @@ public class ChatServer {
 				}
 			}
 		}
+		CamelRoutes.sendMessage(message);
 	}
 
 	@OnClose
