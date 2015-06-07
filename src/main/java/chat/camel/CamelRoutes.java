@@ -30,7 +30,7 @@ public class CamelRoutes {
 	}
 	
 	public static void sendMessage(String message) {
-		template.sendBody(message);
+		template.sendBody("direct:test", message);
 	}
 	
 	public static void main(String[] args) {
